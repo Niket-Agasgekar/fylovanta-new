@@ -1,0 +1,747 @@
+# Project: Prepare Fylovanta for Production, Free-Tier Optimisation and Organic Growth
+
+## Objective
+
+Prepare my existing Fylovanta website for production launch using an architecture that is cost-efficient, scalable and not dependent on any particular hosting provider.
+
+The primary objective is to operate Fylovanta with the lowest possible recurring infrastructure cost, preferably using free-tier services wherever practical.
+
+The website must retain its important functionality, particularly:
+
+- PDF compression and processing
+- Image compression
+- Image resizing
+- Image conversion
+- Document utilities
+- Other existing working tools
+
+**An important requirement is that both image and PDF processing should be designed to operate without consuming paid server-side processing resources.**
+
+Prioritise browser-side processing so that files are processed directly on the visitor's device wherever technically possible.
+
+I am willing to disable video and audio conversion initially if those features require significant server resources or paid infrastructure.
+
+The website must also have:
+- Fully responsive desktop and mobile experiences.
+- Strong technical SEO and search-engine accessibility.
+- Functional contact and support facilities.
+- Persistent and accurate analytics.
+- Accurate legal and privacy information.
+- Good performance and a maintainable architecture.
+- A foundation for attracting organic traffic, particularly from the United States.
+
+The production domain is:
+
+**https://fylovanta.com**
+
+Do not rebuild the application. You have already inspected this codebase. Use the existing audit findings and project implementation as your starting point.
+
+---
+
+## 1. Critical Implementation Principles
+
+Follow these principles throughout the project:
+
+1. Preserve the existing application, framework, architecture and working functionality wherever possible.
+2. Do not unnecessarily rewrite or migrate the existing application.
+3. Do not make the application dependent on a particular hosting provider.
+4. Do not introduce paid APIs, paid conversion services or paid third-party processing dependencies.
+5. Prioritise client-side processing for image and PDF operations.
+6. Avoid unnecessary server-side processing, file uploads and background workers.
+7. Use free-tier services where suitable, but do not assume that free tiers offer unlimited usage.
+8. Do not automatically enable services or resources that could generate charges.
+9. Do not invent business details, statistics, testimonials, security certifications or legal information.
+10. Do not claim that an implementation works unless it has been tested.
+11. Preserve existing URLs, SEO structure, page layouts, visual identity and integrations unless a change is necessary.
+12. Implement changes incrementally and validate existing functionality after each significant change.
+
+The hosting provider and deployment infrastructure will be selected separately. Do not make hosting-provider-specific changes that unnecessarily restrict future deployment options.
+
+---
+
+## 2. Free-Tier-First File Processing Architecture
+
+This is one of the most important requirements of the project.
+
+The website must be designed so that normal image and PDF operations do not require paid server-side processing.
+
+### A. Browser-side image processing
+
+Prioritise processing images directly in the user's browser.
+
+Preserve and support the existing functionality for:
+
+- Image compression.
+- Image resizing.
+- Image conversion.
+- JPG to PNG.
+- PNG to JPG.
+- WebP conversion.
+- Other existing supported image formats.
+- Image optimisation and related utilities.
+
+Requirements:
+
+- Use existing browser libraries wherever suitable.
+- Use Canvas, Web APIs, JavaScript libraries or WebAssembly where appropriate.
+- Process files locally without uploading them to the backend.
+- Avoid third-party paid image-processing APIs.
+- Preserve output quality and allow users to select appropriate compression settings.
+- Provide meaningful before-and-after file-size information.
+- Ensure output files are valid and downloadable.
+- Handle unsupported formats with clear messages.
+- Revoke object URLs and release memory after processing.
+- Handle large images without unnecessarily freezing the browser.
+
+### B. Browser-side PDF processing
+
+Prioritise processing PDF files directly in the user's browser.
+
+Preserve and support the existing PDF utilities, including:
+
+- PDF compression.
+- PDF merge.
+- PDF split.
+- PDF rotation.
+- PDF watermarking.
+- Adding page numbers.
+- JPG to PDF.
+- PNG to PDF.
+- Other existing PDF utilities.
+
+For PDF compression specifically:
+
+- Investigate suitable browser-compatible PDF compression libraries.
+- Consider WebAssembly-based processing where technically appropriate.
+- Preserve the existing Ghostscript-based compression implementation if it remains useful.
+- Evaluate whether Ghostscript can be run locally in the browser through a compatible WebAssembly implementation.
+- Do not assume that merely re-saving a PDF using a JavaScript PDF library produces meaningful compression.
+- Verify actual output file sizes and ensure that compression is genuine.
+- Provide suitable compression settings and explain any quality trade-offs.
+- Do not silently return an uncompressed file while claiming compression succeeded.
+- If the output becomes larger than the original, explain this accurately and avoid claiming a successful size reduction.
+
+The objective is to make PDF compression and other PDF operations available without requiring paid backend compute.
+
+### C. Processing fallback strategy
+
+If a particular image or PDF operation cannot technically be implemented in the browser:
+
+1. Identify the exact technical limitation.
+2. Check whether an existing implementation can be retained.
+3. Determine whether a free-tier-compatible server-side fallback is practical.
+4. Keep the fallback optional and configurable.
+5. Do not introduce a paid processing service.
+6. Do not silently upload a user's file without clearly communicating the processing method.
+7. Do not claim unlimited free processing.
+
+If a tool cannot be provided reliably without paid infrastructure, identify that limitation rather than implementing a misleading or unreliable workaround.
+
+### D. User privacy and local processing
+
+Where files are processed locally:
+
+- Clearly communicate that the file remains on the user's device.
+- Do not send file contents or file names to analytics.
+- Do not upload files unnecessarily.
+- Clean up temporary browser resources after processing.
+- Ensure errors do not leave file data or temporary resources unnecessarily retained.
+
+Where a tool requires server-side processing, explain that accurately in the relevant tool page and Privacy Policy.
+
+---
+
+## 3. Video and Audio Utilities
+
+For the initial production launch, I am willing to temporarily disable video and audio conversion if these features require substantial server resources.
+
+Do the following:
+
+- Identify all tools that require FFmpeg or server-side media processing.
+- Disable resource-intensive server-dependent video/audio functionality through a central feature configuration.
+- Do not delete the existing implementation.
+- Do not install or run unnecessary FFmpeg processes when the features are disabled.
+- Do not present disabled tools as fully functional.
+- Display a clear temporary-unavailability message where appropriate.
+- Keep the architecture ready to re-enable these features later.
+
+Do not compromise PDF or image utilities to accommodate video/audio functionality.
+
+---
+
+## 4. Application and Backend Optimisation
+
+Inspect the existing application, including:
+
+- server.ts
+- package.json
+- Frontend application structure
+- Existing API endpoints
+- Production build configuration
+- Existing file-processing implementations
+- Environment-variable requirements
+
+Preserve the existing Node.js 22, Express and React/Vite implementation unless an actual technical issue requires a change.
+
+Requirements:
+
+- Ensure the production frontend builds correctly.
+- Ensure Express serves the frontend and existing API endpoints correctly.
+- Preserve server-side SEO rendering.
+- Ensure the application can run behind a reverse proxy.
+- Use environment variables for configurable settings.
+- Keep secrets outside frontend code.
+- Avoid persistent data storage on temporary local filesystems.
+- Ensure temporary files are cleaned up after processing and on errors.
+- Avoid unnecessary background processes.
+- Provide meaningful application health and error handling.
+
+Do not introduce unnecessary backend dependencies for features that can run locally in the browser.
+
+Keep the local development workflow functional.
+
+---
+
+## 5. File Upload Limits and Resource Protection
+
+Review the existing backend upload limit, currently approximately 200 MB.
+
+Since the preferred approach is browser-side processing, distinguish clearly between:
+
+1. Files processed locally in the browser.
+2. Files that genuinely require server-side processing.
+
+Requirements:
+
+- Do not apply unnecessary backend upload restrictions to browser-local processing.
+- Configure server upload limits only for operations that genuinely require backend processing.
+- Make server upload limits configurable.
+- Reject oversized server uploads before expensive processing.
+- Display accurate limits in the relevant tool interfaces.
+- Provide clear and useful error messages.
+- Prevent excessive memory and CPU consumption.
+- Handle large files safely.
+- Avoid holding multiple unnecessary copies of large files in memory.
+
+Do not advertise a server upload limit that the actual processing environment cannot support.
+
+Document any future improvements needed for larger files.
+
+---
+
+## 6. Persistent Analytics Infrastructure
+
+The existing telemetry implementation stores information in:
+
+`/tmp/fylovanta-telemetry.json`
+
+This is unsuitable as the primary source of production analytics because temporary storage can disappear after restarts or deployments.
+
+Replace the production analytics storage with persistent storage using a suitable free-tier database, such as Supabase, where appropriate.
+
+Do not make the application dependent on an unnecessarily complex analytics infrastructure.
+
+Create a suitable schema to track:
+
+- Event ID.
+- Event type.
+- Job ID.
+- Tool slug.
+- Tool category.
+- Success/failure status.
+- Event timestamp.
+- Sanitised device category where appropriate.
+- Source category where consent permits.
+
+Do not store:
+
+- Uploaded file names.
+- Uploaded file contents.
+- Personal documents.
+- Raw IP addresses.
+- Sensitive user information.
+
+Implement:
+
+- Successful processing counts.
+- Failed processing counts.
+- Tool-wise usage.
+- Category-wise usage.
+- Daily and monthly totals.
+- Duplicate event protection.
+- Server-side validation where applicable.
+- Appropriate rate limiting.
+
+Use a unique job ID to prevent the same conversion from being counted multiple times.
+
+Do not rely on an in-memory Set as the only long-term duplicate protection mechanism.
+
+The production statistics endpoint must retrieve real persisted data.
+
+Any public usage counter must display only verified successful processing totals.
+
+Never generate fake usage statistics.
+
+Keep local development functional when external database credentials are absent.
+
+---
+
+## 7. Google Analytics 4
+
+Integrate Google Analytics 4.
+
+The integration must be configurable using:
+
+`VITE_GA_MEASUREMENT_ID`
+
+Track:
+
+- Page views.
+- Tool page views.
+- Tool searches.
+- File upload initiated.
+- Conversion started.
+- Conversion completed.
+- Conversion failed.
+- Download completed.
+
+Requirements:
+
+- Do not send file names, document content, personal information or sensitive values to GA4.
+- Respect cookie consent.
+- Do not initialise non-essential analytics before the required consent is provided where applicable.
+- Ensure SPA navigation correctly records page views without double counting.
+- Keep the measurement ID configurable.
+- Do not invent a GA4 measurement ID.
+
+Provide setup instructions for creating and configuring the GA4 property.
+
+---
+
+## 8. Contact Form and Public Contact Details
+
+Use the following public contact information:
+
+**Email:** niketagasgekar@gmail.com
+
+The email address should be displayed on:
+
+- Contact Us page.
+- Website footer.
+- Appropriate About Us or support sections.
+
+Use a clickable `mailto:` link.
+
+**Important: Do not display my personal phone number publicly anywhere on the website.**
+
+Remove or avoid phone-number fields in public contact sections, footer content, About Us pages and support sections.
+
+Do not invent:
+
+- A registered company name.
+- A business registration number.
+- A legal address.
+- A customer-support telephone number.
+
+### Contact form
+
+The existing `POST /api/contact` endpoint currently validates submissions but discards the message.
+
+This must be corrected.
+
+Use a suitable email-delivery service such as Resend, preferably using its free plan initially, and persistent storage where necessary.
+
+The contact form must:
+
+1. Validate user input.
+2. Apply server-side rate limiting.
+3. Apply suitable spam protection.
+4. Save the submission reliably.
+5. Send an email notification to `niketagasgekar@gmail.com`.
+6. Return success only after the submission has been safely accepted.
+7. Display a clear confirmation message.
+8. Record email-delivery status.
+9. Allow safe retry if email delivery fails after the submission has been saved.
+
+Use environment variables where required:
+
+- RESEND_API_KEY
+- CONTACT_TO_EMAIL
+- CONTACT_FROM_EMAIL
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+
+Never expose server-side secrets to the browser.
+
+Document any sender-domain verification required by the email provider.
+
+Do not pretend that a message has been emailed if email delivery has not been configured.
+
+---
+
+## 9. Legal and Compliance Updates
+
+Update the existing legal and informational pages to use Fylovanta consistently.
+
+The legal identity is:
+
+**Individual / Sole Proprietor**
+
+Do not invent or imply that Fylovanta is a registered company.
+
+Do not invent:
+
+- Company registration.
+- Business registration number.
+- Legal address.
+- Governing jurisdiction.
+- Registered trademark.
+- Security certifications.
+- Third-party processing arrangements.
+- File retention guarantees.
+
+Keep unknown business and jurisdiction information configurable and identify any information that must be supplied before launch.
+
+Ensure the Privacy Policy accurately describes:
+
+- Browser-side file processing.
+- Server-side file processing, where applicable.
+- Temporary file storage.
+- File cleanup behaviour.
+- Analytics.
+- Cookies.
+- Contact form data.
+- Third-party services.
+- Any external processing that actually occurs.
+
+Ensure the Terms and Disclaimer accurately describe the platform's actual capabilities and limitations.
+
+Do not claim that every tool processes files locally if any tool uses the server.
+
+Do not claim that uploaded files are never stored unless the actual implementation supports that statement.
+
+Do not publicly display the personal phone number.
+
+---
+
+## 10. Technical SEO and Organic Traffic Optimisation
+
+Retain all existing SEO functionality and improve the gaps identified in the audit.
+
+The production domain is:
+
+`https://fylovanta.com`
+
+Use this as the configured canonical domain.
+
+Specifically:
+
+1. Add the missing `mp4-converter` configuration in `CONVERTER_SEO_CONFIGS`, but ensure the page does not misleadingly advertise a disabled tool as functional.
+2. Generate a proper 1200 × 630 PNG social-sharing image.
+3. Use absolute HTTPS URLs for Open Graph and Twitter images.
+4. Correct BreadcrumbList category URLs to use actual category pages.
+5. Ensure canonical URLs consistently use `https://fylovanta.com`.
+6. Ensure server-side and client-side metadata do not conflict.
+7. Ensure JSON-LD is valid and appropriate.
+8. Preserve sitemap.xml and robots.txt.
+9. Verify all 34 existing tool routes and six category routes.
+10. Preserve proper 404 responses for unknown pages.
+11. Ensure disabled tools are not misleadingly indexed as functional tools.
+12. Improve internal linking between related tools.
+13. Ensure important tool pages have useful, unique descriptions.
+14. Avoid thin, duplicate or keyword-stuffed content.
+15. Ensure pages are accessible to search-engine crawlers.
+16. Maintain correct page titles, descriptions, headings and canonical tags.
+17. Ensure social-sharing metadata is correct.
+18. Keep the website in natural US English.
+
+### Organic traffic objectives
+
+The website is primarily intended to attract users searching for online file utilities, particularly from the United States.
+
+Improve SEO around relevant user search intent, including:
+
+- PDF compression.
+- Merge PDF.
+- Split PDF.
+- Image compression.
+- Image resizing.
+- Convert HEIC to JPG.
+- JPG to PDF.
+- PNG to JPG.
+- Other genuinely supported file utilities.
+
+Do not create artificial keyword pages.
+
+Each tool page must provide a genuinely useful working tool, clear instructions, relevant information and appropriate internal links.
+
+Do not guarantee search rankings or organic traffic.
+
+Prepare the website for Google Search Console verification and sitemap submission.
+
+---
+
+## 11. Performance and Responsive Improvements
+
+Address the following existing audit findings:
+
+- Main JavaScript bundle is approximately 2.3 MB.
+- PDF and document libraries load too early.
+- Object URLs are not consistently revoked.
+- Large PDF rendering can create memory pressure.
+- AdvancedSettingsModal has an empty state for certain document formats.
+- Split PDF thumbnails currently show at most 24 pages.
+- BatchControls allows incompatible output targets.
+- AdSlot does not react dynamically to consent changes.
+- Some UI translations are incomplete.
+
+Implement:
+
+- Lazy loading of converter engines.
+- Dynamic imports.
+- Route-level code splitting.
+- Appropriate loading states.
+- Object URL cleanup.
+- Large-file memory safeguards.
+- Correct batch compatibility filtering.
+- Clear handling of unsupported options.
+- Consent-aware advertisement loading.
+- Efficient loading of tool-specific libraries.
+- Appropriate error and progress feedback.
+
+Do not make unnecessary UI redesigns.
+
+Preserve the existing Fylovanta Slate/Cobalt/Teal visual identity.
+
+### Responsive testing
+
+Verify the complete website at:
+
+- 320 px.
+- 360 px.
+- 375 px.
+- 390 px.
+- 414 px.
+- 768 px.
+- 1024 px.
+- 1280 px and above.
+
+Ensure there is:
+
+- No horizontal overflow.
+- No clipped text.
+- No overlapping elements.
+- No broken mobile navigation.
+- No inaccessible controls.
+- No unusable tool interfaces on mobile.
+
+---
+
+## 12. Google AdSense
+
+Preserve the existing AdSense implementation.
+
+Do not duplicate it or introduce another advertising system.
+
+Maintain:
+
+- Disabled-by-default configuration.
+- Existing publisher and slot ID validation.
+- Responsive ad placements.
+- Consent-aware loading.
+- Empty-container suppression.
+- Correct ads.txt handling.
+
+Ensure ads.txt is populated only with a genuine publisher ID after the account has been configured.
+
+Do not invent publisher IDs or imply that Google has approved the website.
+
+Do not allow advertisements to interfere with file-processing workflows or download buttons.
+
+---
+
+## 13. Free-Tier and Cost Protection
+
+The project should be designed to minimise recurring infrastructure costs.
+
+The most important cost-saving measure is to avoid unnecessary server-side processing of user files.
+
+Prioritise:
+
+- Browser-side image processing.
+- Browser-side PDF processing.
+- Local file handling.
+- Minimal backend requests.
+- Efficient static asset delivery.
+- Lazy-loaded libraries.
+- Persistent storage only for information that genuinely needs to be retained.
+- Free-tier database and email services where suitable.
+
+Avoid:
+
+- Paid conversion APIs.
+- Paid image-processing APIs.
+- Paid PDF-processing APIs.
+- Unnecessary background workers.
+- Always-on compute.
+- Unnecessary file storage.
+- Unnecessary third-party services.
+
+For any optional server-side fallback, document:
+
+- Why it is required.
+- What resources it consumes.
+- Whether it can fit within a free-tier allowance.
+- What happens if the allowance is exceeded.
+- Whether it can be disabled.
+
+Do not automatically create or enable paid resources.
+
+Do not claim that unlimited processing or unlimited traffic can be supported free of cost.
+
+Provide a cost and resource assessment for the recommended implementation.
+
+---
+
+## 14. Deployment Independence and Documentation
+
+Prepare the application so that it can be deployed to a suitable hosting provider without requiring unnecessary application changes.
+
+Do not hard-code:
+
+- Hosting-provider-specific URLs.
+- Hosting-provider-specific storage.
+- Hosting-provider-specific processing dependencies.
+- Provider-specific assumptions in business logic.
+
+Keep configuration environment-based.
+
+Document:
+
+1. Production build requirements.
+2. Required environment variables.
+3. External services and their configuration.
+4. Database schema and setup instructions.
+5. Email service setup.
+6. GA4 setup.
+7. Domain and canonical URL configuration.
+8. Deployment requirements.
+9. HTTPS requirements.
+10. Sitemap and robots.txt verification.
+11. Google Search Console setup.
+12. Production testing.
+13. Expected free-tier limitations.
+14. Any potential billable infrastructure requirements.
+
+Do not connect or modify live domain DNS settings.
+
+Do not create paid resources or change external account settings.
+
+Deployment and hosting selection will be handled separately.
+
+---
+
+## 15. Final Production Validation
+
+Before declaring the application production-ready, verify:
+
+### Application
+- Production build succeeds.
+- Express server starts.
+- Existing frontend routes work.
+- Existing API endpoints work.
+- Server-side SEO rendering works.
+- Unknown routes return correct 404 responses.
+
+### Image processing
+- Image compression works in the browser.
+- Image resizing works in the browser.
+- JPG/PNG conversions work.
+- WebP conversion works where supported.
+- File downloads are valid.
+- Output quality and file-size reporting are accurate.
+- No unnecessary file uploads occur.
+
+### PDF processing
+- PDF compression produces genuine compression where possible.
+- PDF merge works.
+- PDF split works.
+- PDF rotation works.
+- PDF watermarking works.
+- Page numbering works.
+- JPG/PNG to PDF works.
+- Large-file handling is tested.
+- No false success messages are displayed.
+- No unnecessary backend processing is required for supported local operations.
+
+### Optional server-side processing
+- Any retained server-side processing works correctly.
+- Temporary files are cleaned up.
+- Upload limits are correctly enforced.
+- Resource consumption is documented.
+- No paid processing dependency is introduced.
+
+### Other functionality
+- Disabled video/audio tools behave correctly.
+- Contact form submissions are saved.
+- Email notifications work after configuration.
+- Supabase analytics persist after application restart.
+- GA4 records consent-compliant events.
+- Sitemap and robots.txt work.
+- Canonical URLs use the production domain.
+- AdSense remains correctly configured.
+- No secrets are exposed.
+- Responsive layouts pass browser tests.
+
+If an item cannot be verified, mark it as UNVERIFIED rather than claiming success.
+
+---
+
+## 16. Final Deliverables
+
+At the end, provide:
+
+1. Summary of the existing implementation.
+2. List of modified files.
+3. Summary of changes made.
+4. Explanation of the image-processing architecture.
+5. Explanation of the PDF-processing architecture.
+6. Confirmation of which operations run entirely in the browser.
+7. Any operations that still require server-side processing.
+8. Confirmation that no paid processing APIs have been introduced.
+9. Required environment variables.
+10. Database schema and setup instructions, if required.
+11. Email service setup instructions.
+12. GA4 setup instructions.
+13. SEO improvements completed.
+14. Responsive testing results.
+15. Performance improvements completed.
+16. AdSense implementation status.
+17. Expected free-tier limitations.
+18. Outstanding legal/business information required from me.
+19. Test results and unresolved issues.
+20. Deployment-independent production instructions.
+
+## 17. Final Instructions
+
+Implement changes incrementally.
+
+Preserve existing working functionality.
+
+Do not rebuild the application unnecessarily.
+
+Do not make the website dependent on a hosting provider.
+
+Prioritise browser-side processing for both image and PDF utilities so that the normal processing workload does not consume paid server resources.
+
+Do not introduce paid APIs or processing services.
+
+Do not remove existing functionality simply because a different implementation is easier.
+
+If a requirement cannot be implemented reliably within the free-tier-first approach, explain the technical limitation and provide the best practical alternative.
+
+Do not claim completion without testing.
+
+Do not make live domain changes or provision paid resources.
+
+The final objective is to have Fylovanta ready for production: a fast, responsive, SEO-friendly online file utility platform with functional image and PDF tools, minimal infrastructure costs, accurate privacy practices and a foundation for organic growth.

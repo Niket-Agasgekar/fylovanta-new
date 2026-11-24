@@ -1,0 +1,6 @@
+{
+  "name": "Fylovanta - Online File Utility & Conversion Platform",
+  "description": "One simple place for all your everyday file tasks. Convert, compress, merge, split, resize and manage PDFs, images, documents, audio and video online.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
